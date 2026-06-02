@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bell, Check, Trash2, Gift, Trophy, Star, Megaphone, Activity } from 'lucide-react';
 import { notifications as initialNotifs } from '../data/mockData';
+import { playSound } from '../lib/sounds';
 
 const typeIcons: Record<string, React.FC<{ size?: number; className?: string }>> = {
   reward: Gift,
@@ -25,9 +26,9 @@ const Notifications: React.FC = () => {
   const filtered = filter === 'all' ? notifs : filter === 'unread' ? notifs.filter(n => !n.read) : notifs.filter(n => n.type === filter);
   const unreadCount = notifs.filter(n => !n.read).length;
 
-  const markRead = (id: string) => setNotifs(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
-  const markAllRead = () => setNotifs(prev => prev.map(n => ({ ...n, read: true })));
-  const deleteNotif = (id: string) => setNotifs(prev => prev.filter(n => n.id !== id));
+  const markRead = (id: string) => { playSound('click'); setNotifs(prev => prev.map(n => n.id === id ? { ...n, read: true } : n)); };
+  const markAllRead = () => { playSound('success'); setNotifs(prev => prev.map(n => ({ ...n, read: true }))); };
+  const deleteNotif = (id: string) => { playSound('click'); setNotifs(prev => prev.filter(n => n.id !== id)); };
 
   return (
     <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto overflow-x-hidden">
@@ -46,12 +47,12 @@ const Notifications: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0 scrollbar-hide">
         {['all', 'unread', 'reward', 'achievement', 'points', 'event'].map(f => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm capitalize whitespace-nowrap transition-all ${
+            onClick={() => { playSound('click'); setFilter(f); }}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm capitalize whitespace-nowrap transition-all flex-shrink-0 ${
               filter === f
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Star, QrCode, Gamepad2, Gift, ChevronRight, Bell, Zap, Target, Trophy, TrendingUp, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { rewards, missions, notifications } from '../data/mockData';
+import { playSound } from '../lib/sounds';
 
 const quickActions = [
   { icon: QrCode, label: 'Scan QR', path: '/qr', color: 'var(--gradient-start)' },
@@ -104,7 +105,7 @@ const Home: React.FC = () => {
           {quickActions.map(action => (
             <button
               key={action.path}
-              onClick={() => navigate(action.path)}
+              onClick={() => { playSound('click'); navigate(action.path); }}
               className="card p-2 sm:p-3 flex flex-col items-center gap-1.5 sm:gap-2 hover:scale-105 transition-all active:scale-95"
               style={{
                 background: 'var(--card-bg)',
@@ -211,16 +212,17 @@ const Home: React.FC = () => {
             Shop all <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
           </button>
         </div>
-        <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
           {featuredRewards.map(reward => (
             <div
               key={reward.id}
-              className="card flex-shrink-0 w-40 sm:w-48 lg:w-52"
+              className="card"
               style={{
                 background: 'var(--card-bg)',
                 border: '2px solid var(--dark-border)',
                 boxShadow: '0px 4px 0px var(--dark-border)',
                 cursor: 'pointer',
+                overflow: 'hidden',
               }}
               onClick={() => navigate('/shop')}
             >
@@ -230,7 +232,7 @@ const Home: React.FC = () => {
               <div className="p-2 sm:p-3">
                 {reward.limited && (
                   <span
-                    className="badge text-xs mb-2"
+                    className="badge text-xs mb-2 inline-block"
                     style={{
                       background: '#ef4444',
                       color: 'white',
@@ -240,7 +242,7 @@ const Home: React.FC = () => {
                     Limited
                   </span>
                 )}
-                <p style={{ color: 'var(--text-dark)' }} className="font-black text-sm leading-tight mb-1">{reward.title}</p>
+                <p style={{ color: 'var(--text-dark)' }} className="font-black text-sm leading-tight mb-1 truncate">{reward.title}</p>
                 <div className="flex items-center justify-between mt-2">
                   <div className="flex items-center gap-1">
                     <Star size={12} fill="#f59e0b" style={{ color: '#f59e0b' }} />

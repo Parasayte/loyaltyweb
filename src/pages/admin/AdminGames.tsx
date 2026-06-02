@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gamepad2, Edit3, ToggleLeft, ToggleRight, Star, Users } from 'lucide-react';
+import { Gamepad2, CreditCard as Edit3, ToggleLeft, ToggleRight, Star, Users } from 'lucide-react';
 import AdminLayout from './AdminLayout';
 
 const gamesData = [

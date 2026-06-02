@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Star, Flame, Gift, Coffee, Tag, X, Check } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { rewards } from '../data/mockData';
+import { playSound } from '../lib/sounds';
 
 const categories = [
   { id: 'all', label: 'All', icon: Gift },
@@ -70,16 +71,20 @@ const RewardsShop: React.FC = () => {
 
   const handleRedeem = () => {
     if (!selectedReward) return;
+    playSound('click');
     const ok = spendPoints(selectedReward.points);
     setSelectedReward(null);
     if (ok) {
       setSuccess(selectedReward.title);
+      playSound('success');
       showRewardPopup({
         type: 'redeem',
         title: 'Reward Redeemed!',
         subtitle: `Enjoy your ${selectedReward.title}. Check your inventory for the code.`,
       });
       setTimeout(() => setSuccess(null), 3000);
+    } else {
+      playSound('error');
     }
   };
 
@@ -121,12 +126,12 @@ const RewardsShop: React.FC = () => {
       </div>
 
       {/* Categories */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
         {categories.map(cat => (
           <button
             key={cat.id}
             onClick={() => setCategory(cat.id)}
-            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-all ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-all flex-shrink-0 ${
               category === cat.id
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -146,9 +151,9 @@ const RewardsShop: React.FC = () => {
             <h2 className="font-black text-base sm:text-lg text-gray-900 dark:text-white">Limited Time</h2>
             <span className="badge bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs ml-1">HOT</span>
           </div>
-          <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 snap-x">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
             {limitedRewards.map(reward => (
-              <div key={reward.id} className="card flex-shrink-0 w-[140px] sm:w-[160px] lg:w-52 snap-start relative overflow-hidden">
+              <div key={reward.id} className="card w-full min-w-0 relative overflow-hidden">
                 <div className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
                   <span className="badge bg-red-500 text-white border-red-700 text-xs">Limited</span>
                 </div>
@@ -164,7 +169,7 @@ const RewardsShop: React.FC = () => {
                       <span className="font-black text-xs sm:text-sm text-amber-600 dark:text-amber-400">{reward.points.toLocaleString()}</span>
                     </div>
                     <button
-                      onClick={() => setSelectedReward(reward)}
+                      onClick={() => { playSound('click'); setSelectedReward(reward); }}
                       className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl font-bold text-xs border-2 transition-colors ${
                         points >= reward.points
                           ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600 hover:opacity-90'
@@ -211,7 +216,7 @@ const RewardsShop: React.FC = () => {
                       <span className="font-black text-xs sm:text-sm text-amber-600 dark:text-amber-400">{reward.points.toLocaleString()}</span>
                     </div>
                     <button
-                      onClick={() => setSelectedReward(reward)}
+                      onClick={() => { playSound('click'); setSelectedReward(reward); }}
                       className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl font-bold text-xs border-2 transition-all active:scale-95 ${
                         points >= reward.points
                           ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600 hover:opacity-90'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Zap, Clock, Star, Lock, Unlock, Trophy, ChevronRight, Calendar } from 'lucide-react';
+import { Zap, Clock, Star, Lock, Clock as Unlock, Trophy, ChevronRight, Calendar } from 'lucide-react';
 import { seasonalEvents } from '../data/mockData';
 
 const eventRewards = [
@@ -18,12 +18,12 @@ const SeasonalEvents: React.FC = () => {
       <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">Seasonal Events</h1>
 
       {/* Event cards */}
-      <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 snap-x lg:mx-0 lg:px-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
         {seasonalEvents.map(event => (
           <div
             key={event.id}
             onClick={() => setSelectedEvent(event)}
-            className={`card flex-shrink-0 w-[220px] sm:w-[240px] lg:w-64 snap-start cursor-pointer transition-all duration-200 overflow-hidden ${
+            className={`card w-full min-w-0 cursor-pointer transition-all duration-200 overflow-hidden ${
               selectedEvent.id === event.id ? 'ring-2 ring-[#7B6EF6] dark:ring-[#4F8EF7] shadow-md' : 'hover:shadow-md'
             }`}
           >

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Plus, Edit3, Trash2, X, Check, Star, Search } from 'lucide-react';
+import { Plus, CreditCard as Edit3, Trash2, X, Check, Star, Search } from 'lucide-react';
 import AdminLayout from './AdminLayout';
 import { rewards as initialRewards } from '../../data/mockData';
+import { playSound } from '../../lib/sounds';
 
 type Reward = typeof initialRewards[0];
 
@@ -148,10 +149,10 @@ const AdminRewards: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-1 flex-shrink-0">
-                  <button onClick={() => setModal({ reward, show: true })} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-[#7B6EF6] transition-colors">
+                  <button onClick={() => { playSound('click'); setModal({ reward, show: true }); }} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-[#7B6EF6] transition-colors">
                     <Edit3 size={15} />
                   </button>
-                  <button onClick={() => handleDelete(reward.id)} className="p-2 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/20 text-gray-500 hover:text-red-500 transition-colors">
+                  <button onClick={() => { playSound('click'); handleDelete(reward.id); }} className="p-2 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/20 text-gray-500 hover:text-red-500 transition-colors">
                     <Trash2 size={15} />
                   </button>
                 </div>

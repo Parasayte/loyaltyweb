@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Trophy, Lock, Star, Filter } from 'lucide-react';
 import { achievements } from '../data/mockData';
 import { useApp } from '../context/AppContext';
+import { playSound } from '../lib/sounds';
 
 const rarityConfig = {
   common: { label: 'Common', bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-600 dark:text-gray-400', border: 'border-gray-300 dark:border-gray-600' },
@@ -61,7 +62,7 @@ const Achievements: React.FC = () => {
         {(['all', 'completed', 'locked'] as const).map(f => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
+            onClick={() => { playSound('click'); setFilter(f); }}
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm capitalize transition-all ${
               filter === f
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
@@ -74,12 +75,12 @@ const Achievements: React.FC = () => {
       </div>
 
       {/* Category pills */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0 scrollbar-hide">
         {categories.map(cat => (
           <button
             key={cat}
-            onClick={() => setCategory(cat)}
-            className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border font-medium text-xs capitalize whitespace-nowrap transition-all ${
+            onClick={() => { playSound('click'); setCategory(cat); }}
+            className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border font-medium text-xs capitalize whitespace-nowrap transition-all flex-shrink-0 ${
               category === cat
                 ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'

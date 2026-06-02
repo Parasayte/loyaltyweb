@@ -28,6 +28,7 @@ import UserStats from './pages/UserStats';
 
 // Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminSettings from './pages/admin/AdminSettings';
 import AdminAnalytics from './pages/admin/AdminAnalytics';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminRewards from './pages/admin/AdminRewards';
@@ -73,6 +74,7 @@ function App() {
 
           {/* Admin routes (use their own layout) */}
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/rewards" element={<AdminRewards />} />

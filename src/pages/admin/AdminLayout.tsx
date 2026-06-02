@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Gift, QrCode, Gamepad2, BarChart2,
-  Megaphone, ChevronRight, Menu, X, Shield, Bell, Moon, Sun, ArrowLeft
+  Megaphone, ChevronRight, Menu, X, Shield, Bell, Moon, Sun, ArrowLeft, Settings
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 const adminNavItems = [
   { path: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/admin/settings', icon: Settings, label: 'Settings' },
   { path: '/admin/analytics', icon: BarChart2, label: 'Analytics' },
   { path: '/admin/users', icon: Users, label: 'Users' },
   { path: '/admin/rewards', icon: Gift, label: 'Rewards' },

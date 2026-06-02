@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Trophy, Zap, Target, Edit3, Settings, LogOut, ChevronRight, TrendingUp, Calendar, Package, Ticket, Tag, Gift, Check, Copy, Clock, LucideIcon } from 'lucide-react';
+import { Star, Trophy, Zap, Target, CreditCard as Edit3, Settings, LogOut, ChevronRight, TrendingUp, Calendar, Package, Ticket, Tag, Gift, Check, Copy, Clock, Video as LucideIcon } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { achievements, inventory } from '../data/mockData';
+import { playSound } from '../lib/sounds';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Profile: React.FC = () => {
   };
 
   const handleCopy = (code: string) => {
+    playSound('success');
     navigator.clipboard.writeText(code).catch(() => {});
     setCopiedCode(code);
     setTimeout(() => setCopiedCode(null), 2000);
@@ -58,7 +60,7 @@ const Profile: React.FC = () => {
                 <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
               </div>
               <button
-                onClick={() => navigate('/settings')}
+                onClick={() => { playSound('click'); navigate('/settings'); }}
                 className="p-2 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Edit3 size={16} />
@@ -259,13 +261,27 @@ const Profile: React.FC = () => {
         ))}
 
         <button
-          onClick={() => { setIsLoggedIn(false); navigate('/login'); }}
-          className="w-full p-4 flex items-center gap-3 rounded-2xl border-2 border-red-200 dark:border-red-800 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          onClick={() => { setIsLoggedIn(false); playSound('click'); navigate('/login'); }}
+          className="w-full p-4 flex items-center gap-3 rounded-xl font-black transition-all"
+          style={{
+            background: 'var(--card-bg)',
+            color: 'var(--text-dark)',
+            border: '2.5px solid var(--dark-border)',
+            boxShadow: '0px 3px 0px var(--dark-border)',
+          }}
         >
-          <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-            <LogOut size={17} className="text-red-500" />
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{
+              background: '#ef4444',
+              color: 'white',
+              border: '2px solid var(--dark-border)',
+            }}
+          >
+            <LogOut size={17} />
           </div>
-          <span className="font-medium">Log Out</span>
+          <span>Log Out</span>
+          <ChevronRight size={14} className="ml-auto" />
         </button>
       </div>
     </div>

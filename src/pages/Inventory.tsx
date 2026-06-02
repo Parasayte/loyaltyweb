@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Package, Ticket, Tag, Gift, Check, Copy, Clock } from 'lucide-react';
 import { inventory } from '../data/mockData';
+import { playSound } from '../lib/sounds';
 
 const tabs = [
   { id: 'all', label: 'All Items', icon: Package },
@@ -24,6 +25,7 @@ const Inventory: React.FC = () => {
   const used = filtered.filter(i => i.used);
 
   const handleCopy = (code: string) => {
+    playSound('success');
     navigator.clipboard.writeText(code).catch(() => {});
     setCopiedCode(code);
     setTimeout(() => setCopiedCode(null), 2000);
@@ -36,12 +38,12 @@ const Inventory: React.FC = () => {
       <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">My Inventory</h1>
 
       {/* Tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0">
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0 scrollbar-hide">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
               activeTab === tab.id
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
