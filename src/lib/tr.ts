@@ -122,7 +122,7 @@ export const tr = {
     tapToFly: 'Uçmak için Dokun',
     useArrowKeys: 'Ok Tuşlarını Kullanın',
     tapWhenHits: 'Çizgiye Çarptığında Dokun',
-    10LevelColors: '10 Seviye Renk Eşleştirme',
+    tenLevelColors: '10 Seviye Renk Eşleştirme',
     earnMaxPoints: 'Maksimum ödülleri kazanmak için günlük oynayın!',
   },
   settings: {
