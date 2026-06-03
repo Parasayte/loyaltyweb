@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Zap, Clock, Star, Lock, Clock as Unlock, Trophy, ChevronRight, Calendar } from 'lucide-react';
 import { seasonalEvents } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const eventRewards = [
   { id: '1', title: 'Summer Tote Bag', points: 300, unlocked: true, icon: '👜' },

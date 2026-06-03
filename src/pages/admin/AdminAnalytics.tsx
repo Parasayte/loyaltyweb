@@ -3,6 +3,7 @@ import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, AreaChart, Area, X
 import { TrendingUp, Users, Star, Activity } from 'lucide-react';
 import AdminLayout from './AdminLayout';
 import { statsData } from '../../data/mockData';
+import { tr } from '../../lib/tr';
 
 const monthlyActive = [
   { month: 'Jan', users: 8200 },

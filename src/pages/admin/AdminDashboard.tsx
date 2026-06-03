@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import { statsData, adminUsers, rewards } from '../../data/mockData';
 import AdminLayout from './AdminLayout';
+import { tr } from '../../lib/tr';
 
 const miniData = [{ v: 20 }, { v: 40 }, { v: 30 }, { v: 50 }, { v: 45 }, { v: 70 }, { v: 65 }];
 

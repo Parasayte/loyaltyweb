@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Trophy, Star, Crown, TrendingUp } from 'lucide-react';
 import { leaderboard } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const Leaderboard: React.FC = () => {
   const [tab, setTab] = useState<'weekly' | 'monthly' | 'alltime'>('weekly');

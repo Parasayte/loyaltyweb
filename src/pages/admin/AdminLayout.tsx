@@ -5,6 +5,7 @@ import {
   Megaphone, ChevronRight, Menu, X, Shield, Bell, Moon, Sun, ArrowLeft, Settings
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { tr } from '../../lib/tr';
 
 const adminNavItems = [
   { path: '/admin', icon: LayoutDashboard, label: 'Dashboard' },

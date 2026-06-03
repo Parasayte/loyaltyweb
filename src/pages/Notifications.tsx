@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Bell, Check, Trash2, Gift, Trophy, Star, Megaphone, Activity } from 'lucide-react';
 import { notifications as initialNotifs } from '../data/mockData';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const typeIcons: Record<string, React.FC<{ size?: number; className?: string }>> = {
   reward: Gift,
@@ -34,40 +35,50 @@ const Notifications: React.FC = () => {
     <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto overflow-x-hidden">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-3">
-          <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">Notifications</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">{tr.notifications.title}</h1>
           {unreadCount > 0 && (
             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-red-500 text-white text-xs font-black flex items-center justify-center">{unreadCount}</span>
           )}
         </div>
         {unreadCount > 0 && (
           <button onClick={markAllRead} className="flex items-center gap-1 text-xs sm:text-sm font-bold text-[#7B6EF6] dark:text-[#4F8EF7] hover:underline">
-            <Check size={12} className="sm:w-3.5 sm:h-3.5" /> Mark all read
+            <Check size={12} className="sm:w-3.5 sm:h-3.5" /> {tr.notifications.markAllAsRead}
           </button>
         )}
       </div>
 
       {/* Filters */}
       <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0 scrollbar-hide">
-        {['all', 'unread', 'reward', 'achievement', 'points', 'event'].map(f => (
+        {['all', 'unread', 'reward', 'achievement', 'points', 'event'].map(f => {
+          const filterLabels: Record<string, string> = {
+            all: 'Tüm',
+            unread: 'Okunmamış',
+            reward: 'Ödül',
+            achievement: 'Başarı',
+            points: 'Puanlar',
+            event: 'Etkinlik'
+          };
+          return (
           <button
             key={f}
             onClick={() => { playSound('click'); setFilter(f); }}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm capitalize whitespace-nowrap transition-all flex-shrink-0 ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-all flex-shrink-0 ${
               filter === f
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
-            {f}
+            {filterLabels[f]}
           </button>
-        ))}
+          );
+        })}
       </div>
 
       {/* Notification list */}
       {filtered.length === 0 ? (
         <div className="card p-8 sm:p-12 text-center">
           <Bell size={36} className="sm:w-12 sm:h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="font-bold text-gray-500">No notifications</p>
+          <p className="font-bold text-gray-500">{tr.notifications.empty}</p>
         </div>
       ) : (
         <div className="space-y-2">

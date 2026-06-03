@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Gamepad2, Star, Trophy, X, RotateCcw, Play, Zap } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { tr } from '../lib/tr';
 
 // --- Spin Wheel Game ---
 const wheelSegments = [

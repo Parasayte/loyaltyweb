@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Package, Ticket, Tag, Gift, Check, Copy, Clock } from 'lucide-react';
 import { inventory } from '../data/mockData';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const tabs = [
-  { id: 'all', label: 'All Items', icon: Package },
-  { id: 'coupon', label: 'Coupons', icon: Tag },
-  { id: 'ticket', label: 'Tickets', icon: Ticket },
-  { id: 'reward', label: 'Rewards', icon: Gift },
+  { id: 'all', label: tr.inventory.allItems, icon: Package },
+  { id: 'coupon', label: tr.inventory.coupons, icon: Tag },
+  { id: 'ticket', label: tr.inventory.tickets, icon: Ticket },
+  { id: 'reward', label: tr.inventory.rewards, icon: Gift },
 ];
 
 const typeConfig: Record<string, { color: string; bg: string; icon: React.FC<{ size?: number }> }> = {
@@ -35,7 +36,7 @@ const Inventory: React.FC = () => {
 
   return (
     <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto overflow-x-hidden">
-      <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">My Inventory</h1>
+      <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">{tr.inventory.title}</h1>
 
       {/* Tabs */}
       <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:mx-0 lg:px-0 scrollbar-hide">
@@ -58,7 +59,7 @@ const Inventory: React.FC = () => {
       {/* Active items */}
       {active.length > 0 ? (
         <div>
-          <h2 className="font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3">Active ({active.length})</h2>
+          <h2 className="font-bold text-gray-700 dark:text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3">Aktif ({active.length})</h2>
           <div className="space-y-2 sm:space-y-3">
             {active.map(item => {
               const config = typeConfig[item.type];
@@ -77,7 +78,7 @@ const Inventory: React.FC = () => {
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{item.description}</p>
                       </div>
                       {expired ? (
-                        <span className="badge bg-red-100 dark:bg-red-900/30 text-red-500 text-xs flex-shrink-0">Expired</span>
+                        <span className="badge bg-red-100 dark:bg-red-900/30 text-red-500 text-xs flex-shrink-0">Süresi Doldu</span>
                       ) : (
                         <span className={`badge ${config.bg} ${config.color} text-xs flex-shrink-0 capitalize`}>{item.type}</span>
                       )}
@@ -115,7 +116,7 @@ const Inventory: React.FC = () => {
       {/* Used items */}
       {used.length > 0 && (
         <div>
-          <h2 className="font-bold text-gray-500 dark:text-gray-500 text-xs sm:text-sm mb-2 sm:mb-3">Used ({used.length})</h2>
+          <h2 className="font-bold text-gray-500 dark:text-gray-500 text-xs sm:text-sm mb-2 sm:mb-3">Kullanılan ({used.length})</h2>
           <div className="space-y-2">
             {used.map(item => {
               const config = typeConfig[item.type];
@@ -129,7 +130,7 @@ const Inventory: React.FC = () => {
                     <p className="font-medium text-xs sm:text-sm text-gray-700 dark:text-gray-300 line-through">{item.title}</p>
                     <p className="text-xs text-gray-400 font-mono truncate">{item.code}</p>
                   </div>
-                  <span className="badge bg-gray-100 dark:bg-gray-700 text-gray-500 text-xs flex-shrink-0">Used</span>
+                  <span className="badge bg-gray-100 dark:bg-gray-700 text-gray-500 text-xs flex-shrink-0">Kullanılan</span>
                 </div>
               );
             })}

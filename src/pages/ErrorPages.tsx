@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Home, RefreshCw, Wifi, Wrench } from 'lucide-react';
+import { tr } from '../lib/tr';
 
 export const NotFound: React.FC = () => {
   const navigate = useNavigate();

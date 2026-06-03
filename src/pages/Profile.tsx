@@ -4,6 +4,7 @@ import { Star, Trophy, Zap, Target, CreditCard as Edit3, Settings, LogOut, Chevr
 import { useApp } from '../context/AppContext';
 import { achievements, inventory } from '../data/mockData';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
@@ -31,10 +32,10 @@ const Profile: React.FC = () => {
   const displayedInventory = showAllInventory ? activeInventory : activeInventory.slice(0, 3);
 
   const stats = [
-    { label: 'Total Points', value: user.totalPoints.toLocaleString(), icon: Star, color: 'text-amber-500' },
-    { label: 'Current Level', value: `Lv.${user.level}`, icon: TrendingUp, color: 'text-green-500' },
-    { label: 'Achievements', value: `${user.achievements}/${user.totalAchievements}`, icon: Trophy, color: 'text-[#7B6EF6]' },
-    { label: 'Day Streak', value: `${user.streak} days`, icon: Zap, color: 'text-orange-500' },
+    { label: tr.profile.totalPoints, value: user.totalPoints.toLocaleString(), icon: Star, color: 'text-amber-500' },
+    { label: tr.profile.currentLevel, value: `Lv.${user.level}`, icon: TrendingUp, color: 'text-green-500' },
+    { label: tr.profile.achievements, value: `${user.achievements}/${user.totalAchievements}`, icon: Trophy, color: 'text-[#7B6EF6]' },
+    { label: tr.profile.dayStreak, value: `${user.streak} days`, icon: Zap, color: 'text-orange-500' },
   ];
 
   const recentAchievements = completedAchievements.slice(0, 4);
@@ -69,10 +70,10 @@ const Profile: React.FC = () => {
 
             <div className="mt-2 flex items-center gap-2">
               <span className="badge bg-[#7B6EF6]/10 dark:bg-[#4F8EF7]/20 text-[#7B6EF6] dark:text-[#4F8EF7] border border-[#7B6EF6]/30">
-                Level {user.level} • Champion
+                Seviye {user.level} • {tr.profile.champion}
               </span>
               <span className="badge bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
-                <Zap size={10} /> {user.streak}d streak
+                <Zap size={10} /> {user.streak}g serisi
               </span>
             </div>
           </div>
@@ -120,7 +121,7 @@ const Profile: React.FC = () => {
       <div className="card p-5 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-700">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-amber-700 dark:text-amber-400">Available Points</p>
+            <p className="text-sm font-medium text-amber-700 dark:text-amber-400">{tr.profile.availablePoints}</p>
             <div className="flex items-center gap-2">
               <Star size={24} className="text-amber-500" fill="currentColor" />
               <span className="text-4xl font-black text-amber-600 dark:text-amber-400">{points.toLocaleString()}</span>
@@ -130,7 +131,7 @@ const Profile: React.FC = () => {
             onClick={() => navigate('/redeem')}
             className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-2xl border-2 border-amber-700 transition-colors"
           >
-            Redeem
+            {tr.profile.redeem}
           </button>
         </div>
       </div>
@@ -138,9 +139,9 @@ const Profile: React.FC = () => {
       {/* Recent achievements */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-black text-lg text-gray-900 dark:text-white">Recent Achievements</h2>
+          <h2 className="font-black text-lg text-gray-900 dark:text-white">{tr.profile.recentAchievements}</h2>
           <button onClick={() => navigate('/achievements')} className="flex items-center gap-1 text-sm text-[#7B6EF6] dark:text-[#4F8EF7] font-bold">
-            See all <ChevronRight size={14} />
+            {tr.profile.seeAll} <ChevronRight size={14} />
           </button>
         </div>
         <div className="grid grid-cols-4 gap-2">
@@ -159,14 +160,14 @@ const Profile: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-black text-lg text-gray-900 dark:text-white flex items-center gap-2">
               <Package size={18} className="text-[#7B6EF6] dark:text-[#4F8EF7]" />
-              My Inventory
+              {tr.profile.myInventory}
             </h2>
             {activeInventory.length > 3 && (
               <button
                 onClick={() => setShowAllInventory(!showAllInventory)}
                 className="flex items-center gap-1 text-sm text-[#7B6EF6] dark:text-[#4F8EF7] font-bold"
               >
-                {showAllInventory ? 'Show less' : `See all (${activeInventory.length})`} <ChevronRight size={14} className={showAllInventory ? 'rotate-90' : ''} />
+                {showAllInventory ? 'Daha Az Gör' : `${tr.profile.seeAll} (${activeInventory.length})`} <ChevronRight size={14} className={showAllInventory ? 'rotate-90' : ''} />
               </button>
             )}
           </div>
@@ -188,7 +189,7 @@ const Profile: React.FC = () => {
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{item.description}</p>
                       </div>
                       {expired ? (
-                        <span className="badge bg-red-100 dark:bg-red-900/30 text-red-500 text-xs flex-shrink-0">Expired</span>
+                        <span className="badge bg-red-100 dark:bg-red-900/30 text-red-500 text-xs flex-shrink-0">{tr.profile.expired}</span>
                       ) : (
                         <span className={`badge ${config.bg} ${config.color} text-xs flex-shrink-0 capitalize`}>{item.type}</span>
                       )}
@@ -207,7 +208,7 @@ const Profile: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
                       <Clock size={10} />
-                      <span>Expires: {new Date(item.expires).toLocaleDateString()}</span>
+                      <span>{tr.profile.expires} {new Date(item.expires).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </div>
@@ -219,22 +220,22 @@ const Profile: React.FC = () => {
 
       {/* Activity summary */}
       <div className="card p-4">
-        <h2 className="font-black text-lg text-gray-900 dark:text-white mb-3">Activity Summary</h2>
+        <h2 className="font-black text-lg text-gray-900 dark:text-white mb-3">{tr.profile.activitySummary}</h2>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600 dark:text-gray-400">QR Scans this month</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{tr.profile.qrScansThisMonth}</span>
             <span className="font-bold text-gray-900 dark:text-white">12</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Games played</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{tr.profile.gamesPlayed}</span>
             <span className="font-bold text-gray-900 dark:text-white">47</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Rewards redeemed</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{tr.profile.rewardsRedeemed}</span>
             <span className="font-bold text-gray-900 dark:text-white">6</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Missions completed</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{tr.profile.missionsCompleted}</span>
             <span className="font-bold text-gray-900 dark:text-white">23</span>
           </div>
         </div>
@@ -243,9 +244,9 @@ const Profile: React.FC = () => {
       {/* Action links */}
       <div className="space-y-2">
         {[
-          { icon: Target, label: 'View Missions', path: '/missions' },
-          { icon: Trophy, label: 'View Achievements', path: '/achievements' },
-          { icon: Settings, label: 'Account Settings', path: '/settings' },
+          { icon: Target, label: tr.profile.viewMissions, path: '/missions' },
+          { icon: Trophy, label: tr.profile.viewAchievements, path: '/achievements' },
+          { icon: Settings, label: tr.profile.accountSettings, path: '/settings' },
         ].map(item => (
           <button
             key={item.path}
@@ -280,7 +281,7 @@ const Profile: React.FC = () => {
           >
             <LogOut size={17} />
           </div>
-          <span>Log Out</span>
+          <span>{tr.profile.logout}</span>
           <ChevronRight size={14} className="ml-auto" />
         </button>
       </div>

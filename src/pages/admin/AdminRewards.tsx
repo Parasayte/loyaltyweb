@@ -3,6 +3,7 @@ import { Plus, CreditCard as Edit3, Trash2, X, Check, Star, Search } from 'lucid
 import AdminLayout from './AdminLayout';
 import { rewards as initialRewards } from '../../data/mockData';
 import { playSound } from '../../lib/sounds';
+import { tr } from '../../lib/tr';
 
 type Reward = typeof initialRewards[0];
 
@@ -27,38 +28,38 @@ const RewardModal: React.FC<{ reward?: Reward; onClose: () => void; onSave: (r: 
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
       <div className="animate-bounce-in card max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="font-black text-lg text-gray-900 dark:text-white">{reward ? 'Edit Reward' : 'Add Reward'}</h3>
+          <h3 className="font-black text-lg text-gray-900 dark:text-white">{reward ? 'Ödülü Düzenle' : 'Ödül Ekle'}</h3>
           <button onClick={onClose} className="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700"><X size={18} /></button>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block font-bold text-sm mb-2">Title</label>
-            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="input-field" placeholder="Reward title" />
+            <label className="block font-bold text-sm mb-2">Başlık</label>
+            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="input-field" placeholder="Ödül başlığı" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-bold text-sm mb-2">Points Cost</label>
+              <label className="block font-bold text-sm mb-2">Puan Maliyeti</label>
               <input type="number" value={form.points} onChange={e => setForm({...form, points: +e.target.value})} className="input-field" />
             </div>
             <div>
-              <label className="block font-bold text-sm mb-2">Stock</label>
+              <label className="block font-bold text-sm mb-2">Stok</label>
               <input type="number" value={form.stock} onChange={e => setForm({...form, stock: +e.target.value})} className="input-field" />
             </div>
           </div>
           <div>
-            <label className="block font-bold text-sm mb-2">Category</label>
+            <label className="block font-bold text-sm mb-2">Kategori</label>
             <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="input-field">
-              <option value="gift-cards">Gift Cards</option>
-              <option value="food">Food & Drink</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="electronics">Electronics</option>
-              <option value="coupons">Coupons</option>
+              <option value="gift-cards">Hediye Kartları</option>
+              <option value="food">Yiyecek & İçecek</option>
+              <option value="entertainment">Eğlence</option>
+              <option value="electronics">Elektronik</option>
+              <option value="coupons">Kuponlar</option>
               <option value="fitness">Fitness</option>
             </select>
           </div>
           <div>
-            <label className="block font-bold text-sm mb-2">Description</label>
+            <label className="block font-bold text-sm mb-2">Açıklama</label>
             <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} className="input-field resize-none" rows={3} />
           </div>
           <label className="flex items-center gap-3 cursor-pointer">
@@ -66,14 +67,14 @@ const RewardModal: React.FC<{ reward?: Reward; onClose: () => void; onSave: (r: 
               className={`w-5 h-5 rounded-md border-2 border-black dark:border-gray-500 flex items-center justify-center transition-colors ${form.limited ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7]' : 'bg-white dark:bg-gray-700'}`}>
               {form.limited && <Check size={12} className="text-white" />}
             </button>
-            <span className="font-medium text-sm text-gray-900 dark:text-white">Limited Edition</span>
+            <span className="font-medium text-sm text-gray-900 dark:text-white">Sınırlı Basım</span>
           </label>
         </div>
 
         <div className="flex gap-3 mt-6">
-          <button onClick={onClose} className="btn-secondary flex-1">Cancel</button>
+          <button onClick={onClose} className="btn-secondary flex-1">{tr.common.cancel}</button>
           <button onClick={handleSave} className="btn-primary flex-1 flex items-center justify-center gap-2">
-            {saved ? <><Check size={14} /> Saved!</> : reward ? 'Save Changes' : 'Add Reward'}
+            {saved ? <><Check size={14} /> {tr.common.save}!</> : reward ? 'Değişiklikleri Kaydet' : 'Ödül Ekle'}
           </button>
         </div>
       </div>
@@ -111,15 +112,15 @@ const AdminRewards: React.FC = () => {
 
       <div className="p-4 lg:p-6 space-y-6 max-w-4xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-black text-gray-900 dark:text-white">Rewards</h1>
+          <h1 className="text-2xl font-black text-gray-900 dark:text-white">{tr.admin.rewards}</h1>
           <button onClick={() => setModal({ show: true })} className="btn-primary flex items-center gap-2 py-2 px-4 text-sm">
-            <Plus size={14} /> Add Reward
+            <Plus size={14} /> Ödül Ekle
           </button>
         </div>
 
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <input type="text" placeholder="Search rewards..." value={search} onChange={e => setSearch(e.target.value)} className="input-field pl-9 py-2" />
+          <input type="text" placeholder="Ödülleri ara..." value={search} onChange={e => setSearch(e.target.value)} className="input-field pl-9 py-2" />
         </div>
 
         <div className="grid grid-cols-1 gap-3">

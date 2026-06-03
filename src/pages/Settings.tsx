@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sun, Moon, Bell, Volume2, VolumeX, Globe, User, Shield, ChevronRight, Check, LogOut } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { tr } from '../lib/tr';
 
 const Toggle: React.FC<{ value: boolean; onChange: (v: boolean) => void }> = ({ value, onChange }) => (
   <button

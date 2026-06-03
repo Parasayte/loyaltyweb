@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Send, X, Check, Megaphone, Bell, Users, Star } from 'lucide-react';
 import AdminLayout from './AdminLayout';
+import { tr } from '../../lib/tr';
 
 const announcements = [
   { id: '1', title: 'Summer Event Launch', message: 'The Summer Splash event is now live! Earn 2x points on all activities.', type: 'event', audience: 'all', sent: '2026-05-25', status: 'sent' },

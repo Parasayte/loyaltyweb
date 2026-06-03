@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Check } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { tr } from '../lib/tr';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();

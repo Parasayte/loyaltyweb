@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Target, Star, Check, Clock, Zap, Calendar, Trophy } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { missions } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const Missions: React.FC = () => {
   const { addPoints, showRewardPopup } = useApp();
@@ -26,7 +27,7 @@ const Missions: React.FC = () => {
 
   return (
     <div className="p-4 lg:p-6 space-y-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-black text-gray-900 dark:text-white">Missions</h1>
+      <h1 className="text-2xl font-black text-gray-900 dark:text-white">{tr.missions.title}</h1>
 
       {/* Tab */}
       <div className="flex bg-gray-100 dark:bg-gray-800 rounded-2xl border-2 border-black dark:border-gray-600 p-1">
@@ -38,7 +39,7 @@ const Missions: React.FC = () => {
               tab === t ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white border-2 border-black dark:border-gray-500 shadow-sm' : 'text-gray-500 dark:text-gray-400'
             }`}
           >
-            {t === 'daily' ? '📅 Daily' : '📆 Weekly'}
+            {t === 'daily' ? `📅 ${tr.missions.daily}` : `📆 ${tr.missions.weekly}`}
           </button>
         ))}
       </div>
@@ -47,15 +48,15 @@ const Missions: React.FC = () => {
       <div className="card p-5">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Progress</p>
-            <h2 className="text-2xl font-black text-gray-900 dark:text-white">{completed}/{filtered.length} Completed</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{tr.missions.progress}</p>
+            <h2 className="text-2xl font-black text-gray-900 dark:text-white">{completed}/{filtered.length} {tr.missions.completed}</h2>
           </div>
           <div className="text-right">
             <div className="flex items-center gap-1 justify-end">
               <Star size={14} className="text-amber-500" fill="currentColor" />
               <span className="font-black text-amber-600 dark:text-amber-400">{earnedPts}/{totalPts}</span>
             </div>
-            <p className="text-xs text-gray-500">pts earned</p>
+            <p className="text-xs text-gray-500">{tr.missions.ptsEarned}</p>
           </div>
         </div>
         <div className="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -98,7 +99,7 @@ const Missions: React.FC = () => {
                     <span className="text-xs font-bold text-amber-600 dark:text-amber-400">{mission.points} pts</span>
                   </div>
                   {mission.completed && (
-                    <span className="badge bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs">Completed</span>
+                    <span className="badge bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs">{tr.missions.completed}</span>
                   )}
                 </div>
               </div>
@@ -107,7 +108,7 @@ const Missions: React.FC = () => {
                   onClick={() => handleComplete(mission.id)}
                   className="flex-shrink-0 px-4 py-2 rounded-2xl bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white font-bold text-sm border-2 border-black dark:border-gray-600 hover:opacity-90 transition-opacity active:scale-95"
                 >
-                  Complete
+                  {tr.missions.complete}
                 </button>
               ) : (
                 <div className="w-8 h-8 rounded-full bg-green-500 border-2 border-green-700 flex items-center justify-center flex-shrink-0">
@@ -123,7 +124,7 @@ const Missions: React.FC = () => {
       <div className="card p-3 flex items-center gap-2 bg-gray-50 dark:bg-gray-800">
         <Clock size={14} className="text-gray-400" />
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          {tab === 'daily' ? 'Daily missions reset at midnight.' : 'Weekly missions reset every Monday.'}
+          {tab === 'daily' ? tr.missions.dailyReset : tr.missions.weeklyReset}
         </p>
       </div>
     </div>

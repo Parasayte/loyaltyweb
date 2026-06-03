@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Settings, Save, AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import AdminLayout from './AdminLayout';
+import { tr } from '../../lib/tr';
 
 interface SystemSettings {
   id: string;
@@ -94,15 +95,15 @@ const AdminSettings: React.FC = () => {
             <Settings size={20} className="text-[#7B6EF6]" />
           </div>
           <div>
-            <h1 className="text-2xl font-black text-gray-900 dark:text-white">System Settings</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Configure points and rewards parameters</p>
+            <h1 className="text-2xl font-black text-gray-900 dark:text-white">Sistem Ayarları</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Puanlar ve ödülleri parametrelerini yapılandırın</p>
           </div>
         </div>
 
         {loading ? (
           <div className="card p-8 flex items-center justify-center gap-3">
             <Loader size={20} className="animate-spin text-[#7B6EF6]" />
-            <span className="text-gray-600 dark:text-gray-400">Loading settings...</span>
+            <span className="text-gray-600 dark:text-gray-400">Ayarlar yükleniyor...</span>
           </div>
         ) : (
           <>
@@ -132,10 +133,10 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-2">
-                    Exchange Rate
+                    Dönüşüm Oranı
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Points awarded per 1 TL spent (e.g., 10 = 10 points per 1 TL)
+                    Harcanan 1 TL başına verilen puanlar (örn: 10 = 1 TL başına 10 puan)
                   </p>
                   <div className="flex items-center gap-2">
                     <input
@@ -145,7 +146,7 @@ const AdminSettings: React.FC = () => {
                       onChange={e => handleChange('exchange_rate', e.target.value)}
                       className="flex-1 px-4 py-3 rounded-xl border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold"
                     />
-                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">points/TL</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">puan/TL</span>
                   </div>
                 </div>
               </div>
@@ -154,10 +155,10 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-2">
-                    QR Scan Base Points
+                    QR Tarama Temel Puanları
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Base points awarded per QR code scan
+                    QR kodu her taramada verilen temel puanlar
                   </p>
                   <div className="flex items-center gap-2">
                     <input
@@ -166,7 +167,7 @@ const AdminSettings: React.FC = () => {
                       onChange={e => handleChange('qr_points_value', e.target.value)}
                       className="flex-1 px-4 py-3 rounded-xl border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold"
                     />
-                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">points</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">puan</span>
                   </div>
                 </div>
               </div>
@@ -175,10 +176,10 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-2">
-                    Game Points Multiplier
+                    Oyun Puanları Çarpanı
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Multiplier for game earnings (e.g., 1.5x = 50% bonus on game points)
+                    Oyun kazançları için çarpan (örn: 1.5x = oyun puanlarında %50 bonus)
                   </p>
                   <div className="flex items-center gap-2">
                     <input
@@ -197,10 +198,10 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-2">
-                    Referral Bonus
+                    Referral Bonusu
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Bonus points awarded when referring a new user
+                    Yeni kullanıcı davet edildiğinde verilen bonus puanlar
                   </p>
                   <div className="flex items-center gap-2">
                     <input
@@ -209,7 +210,7 @@ const AdminSettings: React.FC = () => {
                       onChange={e => handleChange('referral_bonus', e.target.value)}
                       className="flex-1 px-4 py-3 rounded-xl border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold"
                     />
-                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">points</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">puan</span>
                   </div>
                 </div>
               </div>
@@ -218,10 +219,10 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-2">
-                    Daily Point Limit
+                    Günlük Puan Limiti
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Maximum points a user can earn per day
+                    Bir kullanıcının günde kazanabileceği maksimum puanlar
                   </p>
                   <div className="flex items-center gap-2">
                     <input
@@ -230,7 +231,7 @@ const AdminSettings: React.FC = () => {
                       onChange={e => handleChange('daily_limit', e.target.value)}
                       className="flex-1 px-4 py-3 rounded-xl border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold"
                     />
-                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">points/day</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">puan/gün</span>
                   </div>
                 </div>
               </div>
@@ -239,14 +240,14 @@ const AdminSettings: React.FC = () => {
               <div className="card p-5">
                 <div className="mb-4">
                   <label className="block text-sm font-black text-gray-900 dark:text-white mb-3">
-                    Money to Points Conversion Rate
+                    Para-Puan Dönüşüm Oranı
                   </label>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                    Set how many points equals how much money (e.g., 10$ = 100 points)
+                    Kaç puanın ne kadar paraya eşit olduğunu ayarlayın (örn: 10$ = 100 puan)
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="flex-1">
-                      <label className="block text-xs font-bold text-gray-600 dark:text-gray-400 mb-1">Amount ($)</label>
+                      <label className="block text-xs font-bold text-gray-600 dark:text-gray-400 mb-1">Miktar ($)</label>
                       <input
                         type="number"
                         step="0.1"
@@ -258,7 +259,7 @@ const AdminSettings: React.FC = () => {
                     </div>
                     <div className="text-2xl font-black text-gray-400">=</div>
                     <div className="flex-1">
-                      <label className="block text-xs font-bold text-gray-600 dark:text-gray-400 mb-1">Points</label>
+                      <label className="block text-xs font-bold text-gray-600 dark:text-gray-400 mb-1">Puanlar</label>
                       <input
                         type="number"
                         step="1"
@@ -270,7 +271,7 @@ const AdminSettings: React.FC = () => {
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-500 mt-3 p-2 bg-gray-50 dark:bg-gray-700/30 rounded">
-                    Example: If you set 1$ = 10 points, then 10$ will equal 100 points
+                    Örnek: 1$ = 10 puan olarak ayarlarsanız, 10$ = 100 puan olur
                   </p>
                 </div>
               </div>
@@ -288,12 +289,12 @@ const AdminSettings: React.FC = () => {
                 {saving ? (
                   <>
                     <Loader size={18} className="animate-spin" />
-                    Saving...
+                    Kaydediliyor...
                   </>
                 ) : (
                   <>
                     <Save size={18} />
-                    Save Changes
+                    Değişiklikleri Kaydet
                   </>
                 )}
               </button>
@@ -301,7 +302,7 @@ const AdminSettings: React.FC = () => {
               {/* Info Box */}
               <div className="card p-4 bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800">
                 <p className="text-xs text-blue-900 dark:text-blue-200 font-600 leading-relaxed">
-                  All changes take effect immediately. Users will see updated point values on their next action. Consider notifying users of significant changes via the notifications system.
+                  Tüm değişiklikler hemen yürürlüğe girer. Kullanıcılar bir sonraki işlemlerinde güncellenmiş puan değerlerini görecekler. Önemli değişiklikler için bildirimler sistemi aracılığıyla kullanıcıları bilgilendirmeyi düşünün.
                 </p>
               </div>
             </div>

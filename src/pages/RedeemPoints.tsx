@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Star, Check, X, Gift, Tag, ArrowRight, AlertCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { tr } from '../lib/tr';
 
 const conversionOptions = [
   { id: '1', label: '$5 Gift Card', points: 500, value: '$5.00', icon: '💳' },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Gamepad2, CreditCard as Edit3, ToggleLeft, ToggleRight, Star, Users } from 'lucide-react';
 import AdminLayout from './AdminLayout';
+import { tr } from '../../lib/tr';
 
 const gamesData = [
   { id: '1', name: 'Spin Wheel', emoji: '🎰', active: true, plays: 8420, avgPoints: 42, maxPoints: 200 },

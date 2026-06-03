@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, ChevronUp, Mail, MessageSquare, Phone, Check, Send } from 'lucide-react';
+import { tr } from '../lib/tr';
 
 const faqs = [
   { q: 'How do I earn points?', a: 'You can earn points by scanning QR codes at partner stores, playing mini games, completing daily missions, logging in daily, and earning achievements.' },

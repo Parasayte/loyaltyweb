@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { History as HistoryIcon, TrendingUp, TrendingDown, QrCode, Gamepad2, Target, Star, Gift, Users } from 'lucide-react';
 import { pointsHistory } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const categoryIcons: Record<string, React.FC<{ size?: number; className?: string }>> = {
   qr: QrCode,

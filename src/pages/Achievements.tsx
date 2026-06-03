@@ -3,12 +3,13 @@ import { Trophy, Lock, Star, Filter } from 'lucide-react';
 import { achievements } from '../data/mockData';
 import { useApp } from '../context/AppContext';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const rarityConfig = {
-  common: { label: 'Common', bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-600 dark:text-gray-400', border: 'border-gray-300 dark:border-gray-600' },
-  rare: { label: 'Rare', bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-300 dark:border-blue-700' },
-  epic: { label: 'Epic', bg: 'bg-[#7B6EF6]/10 dark:bg-[#4F8EF7]/20', text: 'text-[#7B6EF6] dark:text-[#4F8EF7]', border: 'border-[#7B6EF6]/40 dark:border-[#4F8EF7]/40' },
-  legendary: { label: 'Legendary', bg: 'bg-amber-100 dark:bg-amber-900/30', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-300 dark:border-amber-700' },
+  common: { label: tr.achievements.common, bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-600 dark:text-gray-400', border: 'border-gray-300 dark:border-gray-600' },
+  rare: { label: tr.achievements.rare, bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-300 dark:border-blue-700' },
+  epic: { label: tr.achievements.epic, bg: 'bg-[#7B6EF6]/10 dark:bg-[#4F8EF7]/20', text: 'text-[#7B6EF6] dark:text-[#4F8EF7]', border: 'border-[#7B6EF6]/40 dark:border-[#4F8EF7]/40' },
+  legendary: { label: tr.achievements.legendary, bg: 'bg-amber-100 dark:bg-amber-900/30', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-300 dark:border-amber-700' },
 };
 
 const Achievements: React.FC = () => {
@@ -29,7 +30,7 @@ const Achievements: React.FC = () => {
 
   return (
     <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto overflow-x-hidden">
-      <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">Achievements</h1>
+      <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">{tr.achievements.title}</h1>
 
       {/* Summary card */}
       <div className="card p-3 sm:p-5 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-700">
@@ -39,7 +40,7 @@ const Achievements: React.FC = () => {
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="font-black text-lg sm:text-xl text-gray-900 dark:text-white">{completedCount} / {achievements.length}</h2>
-            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Achievements Earned</p>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{tr.achievements.earned}</p>
             <div className="mt-1.5 sm:mt-2 h-1.5 sm:h-2 bg-amber-200 dark:bg-amber-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-amber-500 rounded-full"
@@ -52,26 +53,33 @@ const Achievements: React.FC = () => {
               <Star size={12} className="sm:w-3.5 sm:h-3.5 text-amber-500" fill="currentColor" />
               <span className="font-black text-sm sm:text-base text-amber-600 dark:text-amber-400">{totalPoints.toLocaleString()}</span>
             </div>
-            <p className="text-xs text-gray-500">pts earned</p>
+            <p className="text-xs text-gray-500">{tr.missions.ptsEarned}</p>
           </div>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex gap-2 flex-wrap">
-        {(['all', 'completed', 'locked'] as const).map(f => (
+        {(['all', 'completed', 'locked'] as const).map(f => {
+          const filterLabels: Record<string, string> = {
+            all: tr.achievements.title,
+            completed: tr.home.completed,
+            locked: tr.achievements.locked
+          };
+          return (
           <button
             key={f}
             onClick={() => { playSound('click'); setFilter(f); }}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm capitalize transition-all ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border-2 font-bold text-xs sm:text-sm transition-all ${
               filter === f
                 ? 'bg-[#7B6EF6] dark:bg-[#4F8EF7] text-white border-black dark:border-gray-600'
                 : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black dark:border-gray-600 hover:bg-gray-50'
             }`}
           >
-            {f}
+            {filterLabels[f]}
           </button>
-        ))}
+          );
+        })}
       </div>
 
       {/* Category pills */}
@@ -95,7 +103,7 @@ const Achievements: React.FC = () => {
       {filtered.length === 0 ? (
         <div className="card p-8 sm:p-12 text-center">
           <Trophy size={36} className="sm:w-12 sm:h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="font-bold text-gray-500">No achievements found</p>
+          <p className="font-bold text-gray-500">{tr.common.noData}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">

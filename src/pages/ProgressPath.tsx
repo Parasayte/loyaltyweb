@@ -2,6 +2,7 @@ import React from 'react';
 import { Lock, Unlock, Star, ChevronRight, Zap, Trophy } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { progressLevels } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const rarityColors: Record<string, string> = {
   1: 'from-gray-400 to-gray-500',

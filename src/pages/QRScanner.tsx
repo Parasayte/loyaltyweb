@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { QrCode, Camera, Check, X, Zap, RotateCcw } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { tr } from '../lib/tr';
 
 const fakeQRResults = [
   { code: 'STORE42-BONUS', title: 'Store Visit Bonus!', points: 75, location: 'Store #42 - Main St' },

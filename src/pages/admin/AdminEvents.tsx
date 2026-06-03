@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, CreditCard as Edit3, Trash2, X, Check, Calendar, Zap } from 'lucide-react';
 import AdminLayout from './AdminLayout';
 import { seasonalEvents } from '../../data/mockData';
+import { tr } from '../../lib/tr';
 
 const AdminEvents: React.FC = () => {
   const [events, setEvents] = useState(seasonalEvents.map(e => ({ ...e })));

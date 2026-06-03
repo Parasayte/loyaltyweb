@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { QrCode, Plus, Trash2, X, Check, Copy } from 'lucide-react';
 import AdminLayout from './AdminLayout';
+import { tr } from '../../lib/tr';
 
 const qrCodes = [
   { id: '1', code: 'STORE42-BONUS', location: 'Store #42 - Main St', points: 75, scans: 234, active: true },

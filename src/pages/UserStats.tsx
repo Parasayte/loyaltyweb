@@ -3,6 +3,7 @@ import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Cart
 import { TrendingUp, Star, Gamepad2, QrCode, Target, Trophy } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statsData } from '../data/mockData';
+import { tr } from '../lib/tr';
 
 const statCards = [
   { label: 'Total Earned', value: '4,250', icon: Star, color: 'text-amber-500', bg: 'bg-amber-100 dark:bg-amber-900/30', trend: '+12%' },

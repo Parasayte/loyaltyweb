@@ -3,6 +3,7 @@ import { Search, Star, Flame, Gift, Coffee, Tag, X, Check } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { rewards } from '../data/mockData';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const categories = [
   { id: 'all', label: 'All', icon: Gift },
@@ -23,7 +24,7 @@ const RedeemModal: React.FC<RedeemModalProps> = ({ reward, onConfirm, onClose, c
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
     <div className="animate-bounce-in card max-w-sm w-full p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-black text-lg text-gray-900 dark:text-white">Confirm Redemption</h3>
+        <h3 className="font-black text-lg text-gray-900 dark:text-white">{tr.shop.confirmRedemption}</h3>
         <button onClick={onClose} className="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">
           <X size={18} />
         </button>
@@ -34,7 +35,7 @@ const RedeemModal: React.FC<RedeemModalProps> = ({ reward, onConfirm, onClose, c
       <h4 className="font-black text-gray-900 dark:text-white">{reward.title}</h4>
       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-4">{reward.description}</p>
       <div className="flex items-center justify-between p-3 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border-2 border-amber-200 dark:border-amber-700 mb-4">
-        <span className="font-medium text-amber-700 dark:text-amber-400">Cost</span>
+        <span className="font-medium text-amber-700 dark:text-amber-400">{tr.shop.cost}</span>
         <div className="flex items-center gap-1">
           <Star size={16} className="text-amber-500" fill="currentColor" />
           <span className="font-black text-amber-600 dark:text-amber-400">{reward.points.toLocaleString()} pts</span>
@@ -46,7 +47,7 @@ const RedeemModal: React.FC<RedeemModalProps> = ({ reward, onConfirm, onClose, c
       <div className="flex gap-3">
         <button onClick={onClose} className="btn-secondary flex-1">Cancel</button>
         <button onClick={onConfirm} disabled={!canAfford} className="btn-primary flex-1 disabled:opacity-50">
-          Redeem Now
+          {tr.shop.redeem}
         </button>
       </div>
     </div>
@@ -106,7 +107,7 @@ const RewardsShop: React.FC = () => {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">Rewards Shop</h1>
+        <h1 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">{tr.shop.title}</h1>
         <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-amber-50 dark:bg-amber-900/20 rounded-xl sm:rounded-2xl border-2 border-amber-200 dark:border-amber-700">
           <Star size={12} className="sm:w-3.5 sm:h-3.5 text-amber-500" fill="currentColor" />
           <span className="font-black text-sm sm:text-base text-amber-600 dark:text-amber-400">{points.toLocaleString()}</span>
@@ -118,7 +119,7 @@ const RewardsShop: React.FC = () => {
         <Search size={16} className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 sm:w-[18px] sm:h-[18px]" />
         <input
           type="text"
-          placeholder="Search rewards..."
+          placeholder={tr.shop.searchRewards}
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="input-field pl-10 sm:pl-11 text-sm sm:text-base"
@@ -148,14 +149,14 @@ const RewardsShop: React.FC = () => {
         <div>
           <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
             <Flame size={14} className="sm:w-[18px] sm:h-[18px] text-red-500" />
-            <h2 className="font-black text-base sm:text-lg text-gray-900 dark:text-white">Limited Time</h2>
+            <h2 className="font-black text-base sm:text-lg text-gray-900 dark:text-white">{tr.shop.limitedTime}</h2>
             <span className="badge bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs ml-1">HOT</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
             {limitedRewards.map(reward => (
               <div key={reward.id} className="card w-full min-w-0 relative overflow-hidden">
                 <div className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
-                  <span className="badge bg-red-500 text-white border-red-700 text-xs">Limited</span>
+                  <span className="badge bg-red-500 text-white border-red-700 text-xs">{tr.shop.limited}</span>
                 </div>
                 <div className="h-24 sm:h-28 lg:h-36 overflow-hidden border-b-2 border-black dark:border-gray-700">
                   <img src={reward.image} alt={reward.title} className="w-full h-full object-cover" />
@@ -176,7 +177,7 @@ const RewardsShop: React.FC = () => {
                           : 'bg-gray-100 dark:bg-gray-700 text-gray-400 border-gray-300 dark:border-gray-600 cursor-not-allowed'
                       }`}
                     >
-                      {points >= reward.points ? 'Redeem' : 'Need more'}
+                      {points >= reward.points ? tr.shop.redeem : tr.shop.needMore}
                     </button>
                   </div>
                   {reward.stock !== undefined && reward.stock <= 20 && (
@@ -192,13 +193,13 @@ const RewardsShop: React.FC = () => {
       {/* All rewards */}
       <div>
         <h2 className="font-black text-base sm:text-lg text-gray-900 dark:text-white mb-2 sm:mb-3">
-          {category === 'all' ? 'All Rewards' : categories.find(c => c.id === category)?.label}
+          {category === 'all' ? tr.shop.allRewards : categories.find(c => c.id === category)?.label}
           <span className="ml-2 text-xs sm:text-sm font-medium text-gray-500">({regularRewards.length})</span>
         </h2>
         {regularRewards.length === 0 ? (
           <div className="card p-8 sm:p-12 text-center">
             <Gift size={36} className="sm:w-12 sm:h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-            <p className="font-bold text-gray-500">No rewards found</p>
+            <p className="font-bold text-gray-500">{tr.shop.noRewardsFound}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -223,7 +224,7 @@ const RewardsShop: React.FC = () => {
                           : 'bg-gray-100 dark:bg-gray-700 text-gray-400 border-gray-300 dark:border-gray-600'
                       }`}
                     >
-                      {points >= reward.points ? 'Redeem' : 'Need more'}
+                      {points >= reward.points ? tr.shop.redeem : tr.shop.needMore}
                     </button>
                   </div>
                 </div>

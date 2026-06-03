@@ -4,12 +4,13 @@ import { Star, QrCode, Gamepad2, Gift, ChevronRight, Bell, Zap, Target, Trophy, 
 import { useApp } from '../context/AppContext';
 import { rewards, missions, notifications } from '../data/mockData';
 import { playSound } from '../lib/sounds';
+import { tr } from '../lib/tr';
 
 const quickActions = [
-  { icon: QrCode, label: 'Scan QR', path: '/qr', color: 'var(--gradient-start)' },
-  { icon: Gamepad2, label: 'Play Games', path: '/games', color: '#22c55e' },
-  { icon: Gift, label: 'Rewards', path: '/shop', color: '#f59e0b' },
-  { icon: Target, label: 'Missions', path: '/missions', color: '#ef4444' },
+  { icon: QrCode, label: tr.home.scanQr, path: '/qr', color: 'var(--gradient-start)' },
+  { icon: Gamepad2, label: tr.home.playGames, path: '/games', color: '#22c55e' },
+  { icon: Gift, label: tr.home.rewards, path: '/shop', color: '#f59e0b' },
+  { icon: Target, label: tr.home.missions, path: '/missions', color: '#ef4444' },
 ];
 
 const Home: React.FC = () => {
@@ -39,11 +40,11 @@ const Home: React.FC = () => {
         <div className="relative">
           <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
             <div className="flex-1 min-w-0">
-              <p className="text-white/80 text-xs sm:text-sm">Welcome back,</p>
+              <p className="text-white/80 text-xs sm:text-sm">{tr.home.welcomeBack}</p>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-black truncate">{user.username}</h1>
               <div className="flex items-center gap-1 sm:gap-2 mt-1">
                 <Zap size={12} className="sm:w-3.5 sm:h-3.5" />
-                <span className="text-xs sm:text-sm">{user.streak} day streak!</span>
+                <span className="text-xs sm:text-sm">{user.streak} {tr.home.streak}</span>
               </div>
             </div>
             <div className="text-center flex-shrink-0">
@@ -69,7 +70,7 @@ const Home: React.FC = () => {
           >
             <Star size={20} className="sm:w-6 sm:h-6" fill="white" />
             <div className="flex-1 min-w-0">
-              <p className="text-xs opacity-80">Current Balance</p>
+              <p className="text-xs opacity-80">{tr.home.currentBalance}</p>
               <p className="text-xl sm:text-2xl lg:text-3xl font-black">{points.toLocaleString()}</p>
             </div>
             <button
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
               className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-[#7c3aed] rounded-xl font-black text-xs sm:text-sm border-2 border-white flex-shrink-0"
               style={{ boxShadow: '0px 2px 0px rgba(0,0,0,0.2)' }}
             >
-              Redeem
+              {tr.home.redeem}
             </button>
           </div>
 
@@ -93,14 +94,14 @@ const Home: React.FC = () => {
             >
               <div className="h-full bg-white rounded-full transition-all duration-500" style={{ width: `${xpPercent}%` }} />
             </div>
-            <p className="text-xs opacity-60 mt-1">{user.xpToNext - user.xp} XP to next level</p>
+            <p className="text-xs opacity-60 mt-1">{user.xpToNext - user.xp} XP sonraki seviye için</p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
       <div>
-        <h2 style={{ color: 'var(--text-dark)' }} className="text-base sm:text-lg font-black mb-2 sm:mb-3">Quick Actions</h2>
+        <h2 style={{ color: 'var(--text-dark)' }} className="text-base sm:text-lg font-black mb-2 sm:mb-3">{tr.home.quickActions}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
           {quickActions.map(action => (
             <button
@@ -132,14 +133,14 @@ const Home: React.FC = () => {
       {/* Daily Missions */}
       <div>
         <div className="flex items-center justify-between mb-2 sm:mb-3">
-          <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">Daily Missions</h2>
+          <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">{tr.home.dailyMissions}</h2>
           <button onClick={() => navigate('/missions')} className="flex items-center gap-1 text-xs sm:text-sm font-black" style={{ color: 'var(--primary-blue)' }}>
-            View all <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
+            {tr.home.seeAll} <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
           </button>
         </div>
         <div className="card p-3 sm:p-4">
           <div className="flex items-center justify-between mb-3">
-            <span style={{ color: 'var(--text-dark)' }} className="text-sm font-600">{completedToday}/{dailyMissions.length} completed</span>
+            <span style={{ color: 'var(--text-dark)' }} className="text-sm font-600">{completedToday}/{dailyMissions.length} {tr.home.completed}</span>
             <span
               className="badge text-xs"
               style={{
@@ -207,9 +208,9 @@ const Home: React.FC = () => {
       {/* Featured Rewards */}
       <div>
         <div className="flex items-center justify-between mb-2 sm:mb-3">
-          <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">Featured Rewards</h2>
+          <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">{tr.home.featuredRewards}</h2>
           <button onClick={() => navigate('/shop')} className="flex items-center gap-1 text-xs sm:text-sm font-black" style={{ color: 'var(--primary-blue)' }}>
-            Shop all <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
+            {tr.home.shopAll} <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
@@ -239,7 +240,7 @@ const Home: React.FC = () => {
                       borderColor: '#ef4444',
                     }}
                   >
-                    Limited
+                    {tr.shop.limited}
                   </span>
                 )}
                 <p style={{ color: 'var(--text-dark)' }} className="font-black text-sm leading-tight mb-1 truncate">{reward.title}</p>
@@ -261,7 +262,7 @@ const Home: React.FC = () => {
         <div>
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <div className="flex items-center gap-2">
-              <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">Notifications</h2>
+              <h2 style={{ color: 'var(--text-dark)' }} className="font-black text-base sm:text-lg">{tr.notifications.title}</h2>
               <span
                 className="badge text-xs px-2 py-0.5"
                 style={{
@@ -274,7 +275,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button onClick={() => navigate('/notifications')} className="flex items-center gap-1 text-xs sm:text-sm font-black" style={{ color: 'var(--primary-blue)' }}>
-              See all <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
+              {tr.home.seeAll} <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
             </button>
           </div>
           <div className="space-y-2">
@@ -305,17 +306,17 @@ const Home: React.FC = () => {
         <div className="card p-3 sm:p-4 text-center" style={{ background: 'var(--card-bg)', border: '2px solid var(--dark-border)', boxShadow: '0px 4px 0px var(--dark-border)' }}>
           <Trophy size={16} className="sm:w-5 sm:h-5 mx-auto mb-1.5 sm:mb-2" style={{ color: '#f59e0b' }} />
           <p style={{ color: 'var(--text-dark)' }} className="font-black text-lg sm:text-xl">#{user.rank}</p>
-          <p style={{ color: 'var(--text-muted)' }} className="text-xs">Rank</p>
+          <p style={{ color: 'var(--text-muted)' }} className="text-xs">{tr.home.rank}</p>
         </div>
         <div className="card p-3 sm:p-4 text-center" style={{ background: 'var(--card-bg)', border: '2px solid var(--dark-border)', boxShadow: '0px 4px 0px var(--dark-border)' }}>
           <TrendingUp size={16} className="sm:w-5 sm:h-5 mx-auto mb-1.5 sm:mb-2" style={{ color: '#22c55e' }} />
           <p style={{ color: 'var(--text-dark)' }} className="font-black text-lg sm:text-xl">{user.achievements}</p>
-          <p style={{ color: 'var(--text-muted)' }} className="text-xs">Achievements</p>
+          <p style={{ color: 'var(--text-muted)' }} className="text-xs">{tr.home.achievements}</p>
         </div>
         <div className="card p-3 sm:p-4 text-center" style={{ background: 'var(--card-bg)', border: '2px solid var(--dark-border)', boxShadow: '0px 4px 0px var(--dark-border)' }}>
           <Zap size={16} className="sm:w-5 sm:h-5 mx-auto mb-1.5 sm:mb-2" style={{ color: 'var(--primary-blue)' }} />
           <p style={{ color: 'var(--text-dark)' }} className="font-black text-lg sm:text-xl">{user.streak}</p>
-          <p style={{ color: 'var(--text-muted)' }} className="text-xs">Day Streak</p>
+          <p style={{ color: 'var(--text-muted)' }} className="text-xs">{tr.home.dayStreak}</p>
         </div>
       </div>
     </div>
