@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star, QrCode, Gamepad2, Gift, ChevronRight, Bell, Zap, Target, Trophy, TrendingUp, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { rewards, missions, notifications } from '../data/mockData';
 import { playSound } from '../lib/sounds';
 import { tr } from '../lib/tr';
+import { WinningParticles } from '../components/WinningParticles';
 
 const quickActions = [
   { icon: QrCode, label: tr.home.scanQr, path: '/qr', color: 'var(--gradient-start)' },
@@ -16,14 +17,22 @@ const quickActions = [
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { user, points } = useApp();
+  const [showParticles, setShowParticles] = useState(false);
   const xpPercent = Math.round((user.xp / user.xpToNext) * 100);
   const dailyMissions = missions.filter(m => m.category === 'daily');
   const completedToday = dailyMissions.filter(m => m.completed).length;
   const featuredRewards = rewards.filter(r => r.featured).slice(0, 3);
   const unreadNotifs = notifications.filter(n => !n.read);
 
+  const handleLevelUp = () => {
+    setShowParticles(true);
+    playSound('level-up');
+    setTimeout(() => setShowParticles(false), 2000);
+  };
+
   return (
     <div className="p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 max-w-4xl mx-auto overflow-x-hidden">
+      <WinningParticles trigger={showParticles} emoji="🌟" />
       {/* Hero Card */}
       <div
         className="card p-3 sm:p-4 lg:p-6"
@@ -75,8 +84,9 @@ const Home: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/redeem')}
-              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-[#7c3aed] rounded-xl font-black text-xs sm:text-sm border-2 border-white flex-shrink-0"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-[#7c3aed] rounded-xl font-black text-xs sm:text-sm border-2 border-white flex-shrink-0 transition-all active:scale-95 hover:shadow-md"
               style={{ boxShadow: '0px 2px 0px rgba(0,0,0,0.2)' }}
+              onMouseEnter={() => playSound('click')}
             >
               {tr.home.redeem}
             </button>
